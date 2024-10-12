@@ -1,10 +1,22 @@
 package commands
 
-import "github.com/spossner/pokedexcli/internal/pokecache"
+import (
+	"time"
+
+	"github.com/spossner/pokedexcli/internal/pokecache"
+)
 
 type CliCommandCtx struct {
 	Next, Previous *string
+	Pokemons       map[string]Pokemon
 	Cache          *pokecache.Cache
+}
+
+func NewCliCommandCtx() *CliCommandCtx {
+	return &CliCommandCtx{
+		Pokemons: make(map[string]Pokemon),
+		Cache:    pokecache.NewCache(3 * time.Minute),
+	}
 }
 
 type CliCommand struct {
@@ -38,6 +50,11 @@ func GetCommands() map[string]CliCommand {
 			Name:        "explore",
 			Description: "Displays the pokemon in a given area",
 			Fn:          CommandExplore,
+		},
+		"catch": {
+			Name:        "catch",
+			Description: "Tries to catch a given pokemon",
+			Fn:          CommandCatch,
 		},
 	}
 }

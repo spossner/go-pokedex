@@ -29,12 +29,12 @@ func CommandCatch(ctx *CliCommandCtx, params ...string) error {
 	}
 
 	exp := rand.IntN(220)
-	fmt.Printf("Throwing a Pokeball (%d) at %s...\n", exp, name)
+	fmt.Printf("Throwing a Pokeball (%d) at %s...\n", exp, pokemon.Name)
 	if exp >= pokemon.BaseExperience {
-		fmt.Printf("%s was caught!\n", name)
-		ctx.Pokemons[name] = pokemon
+		fmt.Printf("%s was caught!\nYou may now inspect it with the inspect command.\n", pokemon.Name)
+		ctx.Pokemons[pokemon.Name] = pokemon
 	} else {
-		fmt.Printf("%s (%d) escaped!\n", name, pokemon.BaseExperience)
+		fmt.Printf("%s (%d) escaped!\n", pokemon.Name, pokemon.BaseExperience)
 	}
 
 	return nil

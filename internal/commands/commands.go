@@ -61,6 +61,11 @@ func GetCommands() map[string]CliCommand {
 			Description: "Shows the stats of a caught pokemon",
 			Fn:          CommandInspect,
 		},
+		"pokedex": {
+			Name:        "pokedex",
+			Description: "Displays a list of all pokemons already caugth",
+			Fn:          CommandPokedex,
+		},
 	}
 }
 

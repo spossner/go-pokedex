@@ -56,6 +56,11 @@ func GetCommands() map[string]CliCommand {
 			Description: "Tries to catch a given pokemon",
 			Fn:          CommandCatch,
 		},
+		"inspect": {
+			Name:        "inspect",
+			Description: "Shows the stats of a caught pokemon",
+			Fn:          CommandInspect,
+		},
 	}
 }
 

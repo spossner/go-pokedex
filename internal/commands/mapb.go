@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-func CommandMapBack(ctx *CliCommandCtx) error {
+func CommandMapBack(ctx *CliCommandCtx, params ...string) error {
 	if ctx.Previous == nil {
 		return fmt.Errorf("no such page")
 	}

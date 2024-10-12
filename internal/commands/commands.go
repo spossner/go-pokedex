@@ -9,7 +9,7 @@ type CliCommandCtx struct {
 
 type CliCommand struct {
 	Name, Description string
-	Fn                func(ctx *CliCommandCtx) error
+	Fn                func(ctx *CliCommandCtx, params ...string) error
 }
 
 func GetCommands() map[string]CliCommand {
@@ -33,6 +33,11 @@ func GetCommands() map[string]CliCommand {
 			Name:        "mapb",
 			Description: "Displays the names of previous 20 location areas in the Pokemon world",
 			Fn:          CommandMapBack,
+		},
+		"explore": {
+			Name:        "explore",
+			Description: "Displays the pokemon in a given area",
+			Fn:          CommandExplore,
 		},
 	}
 }

@@ -7,7 +7,7 @@ import (
 
 var firstPageUrl string = "https://pokeapi.co/api/v2/location-area?offset=0&limit=20"
 
-func CommandMap(ctx *CliCommandCtx) error {
+func CommandMap(ctx *CliCommandCtx, params ...string) error {
 	if ctx.Next == nil && ctx.Previous == nil {
 		ctx.Next = &firstPageUrl
 	}

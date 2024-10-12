@@ -3,24 +3,23 @@ package commands
 import (
 	"encoding/json"
 	"fmt"
-	"net/http"
 )
 
-var firstPageUrl string = "https://pokeapi.co/api/v2/location-area"
+var firstPageUrl string = "https://pokeapi.co/api/v2/location-area?offset=0&limit=20"
 
 func CommandMap(ctx *CliCommandCtx) error {
 	if ctx.Next == nil && ctx.Previous == nil {
 		ctx.Next = &firstPageUrl
 	}
-	res, err := http.Get(*ctx.Next)
+	url := *ctx.Next
+
+	data, err := ctx.Cache.GetUrl(url)
 	if err != nil {
-		return fmt.Errorf("error getting next page: %w", err)
+		return fmt.Errorf("error getting location areas: %w", err)
 	}
-	defer res.Body.Close()
 
 	var areas LocationAreas
-	decoder := json.NewDecoder(res.Body)
-	if err := decoder.Decode(&areas); err != nil {
+	if err := json.Unmarshal(data, &areas); err != nil {
 		return fmt.Errorf("error parsing response: %w", err)
 	}
 

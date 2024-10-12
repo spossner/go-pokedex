@@ -3,22 +3,21 @@ package commands
 import (
 	"encoding/json"
 	"fmt"
-	"net/http"
 )
 
 func CommandMapBack(ctx *CliCommandCtx) error {
 	if ctx.Previous == nil {
 		return fmt.Errorf("no such page")
 	}
-	res, err := http.Get(*ctx.Previous)
+	url := *ctx.Previous
+
+	data, err := ctx.Cache.GetUrl(url)
 	if err != nil {
-		return fmt.Errorf("error getting previous page: %w", err)
+		return fmt.Errorf("error getting location areas: %w", err)
 	}
-	defer res.Body.Close()
 
 	var areas LocationAreas
-	decoder := json.NewDecoder(res.Body)
-	if err := decoder.Decode(&areas); err != nil {
+	if err := json.Unmarshal(data, &areas); err != nil {
 		return fmt.Errorf("error parsing response: %w", err)
 	}
 

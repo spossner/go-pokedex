@@ -1,7 +1,10 @@
 package commands
 
+import "github.com/spossner/pokedexcli/internal/pokecache"
+
 type CliCommandCtx struct {
 	Next, Previous *string
+	Cache          *pokecache.Cache
 }
 
 type CliCommand struct {
